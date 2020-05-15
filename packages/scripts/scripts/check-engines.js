@@ -16,7 +16,7 @@ const hasConfig =
 	hasArgInCLI( '--node' ) ||
 	hasArgInCLI( '--npm' ) ||
 	hasArgInCLI( '--yarn' );
-const config = ! hasConfig ? [ '--node', '>=10.0.0', '--npm', '>=6.9.0' ] : [];
+const config = ! hasConfig ? [ '--node', '>=10.12.0', '--npm', '>=6.9.0' ] : [];
 
 const result = spawn(
 	resolveBin( 'check-node-version' ),

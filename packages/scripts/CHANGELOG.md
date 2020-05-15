@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+- This package requires now `node` v10.12.0 or later.
+
 ## 9.1.0 (2020-05-14)
 
 ### Enhancements
