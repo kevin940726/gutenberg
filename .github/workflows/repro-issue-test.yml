@@ -51,3 +51,24 @@ jobs:
               with:
                   name: repro-issue-report
                   path: repro-issue-report.json
+
+    report:
+        name: Report repro issue to GitHub
+        needs: upload
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+
+            - uses: actions/download-artifact@v2
+              with:
+                  name: repro-issue-report
+
+            - name: Report to issue
+              run: |
+                  node ./packages/repro-issue/src/report.js
