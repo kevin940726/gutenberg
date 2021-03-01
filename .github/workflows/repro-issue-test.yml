@@ -1,0 +1,53 @@
+on:
+    issues:
+        types: [opened, edited, reopened]
+
+name: Repro issue test
+jobs:
+    upload:
+        name: Run repro issue test
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Cache node modules
+              uses: actions/cache@v2
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  # npm cache files are stored in `~/.npm` on Linux/macOS
+                  path: ~/.npm
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-${{ env.cache-name }}-
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
+
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+
+            - name: npm install and build
+              run: |
+                  npm ci
+                  FORCE_REDUCED_MOTION=true npm run build
+
+            - name: Install WordPress
+              run: |
+                  chmod -R 767 ./ # TODO: Possibly integrate in wp-env
+                  npm run wp-env start
+
+            - name: Get repro issue script
+              run: |
+                  node ./packages/repro-issue > ./repro-issue.test.js
+
+            - name: Running the tests
+              run: |
+                  $( npm bin )/wp-scripts test-e2e --config=./packages/e2e-tests/jest.config.js --runTestsByPath ./repro-issue.test.js --json --outputFile=repro-issue-report.json
+
+            - uses: actions/upload-artifact@v2
+              with:
+                  name: repro-issue-report
+                  path: repro-issue-report.json

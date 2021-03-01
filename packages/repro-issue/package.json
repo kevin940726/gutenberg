@@ -1,0 +1,26 @@
+{
+	"name": "@wordpress/repro-issue",
+	"private": true,
+	"version": "1.0.0-prerelease",
+	"description": "Run reproduction scripts in the issues.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"keywords": [ "wordpress" ],
+	"homepage": "https://github.com/WordPress/gutenberg/tree/master/packages/repro-issue/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/WordPress/gutenberg.git",
+		"directory": "packages/repro-issue"
+	},
+	"bugs": {
+		"url": "https://github.com/WordPress/gutenberg/issues"
+	},
+	"main": "src/index.js",
+	"dependencies": {
+		"remark": "^13.0.0",
+		"unist-util-visit": "^2.0.3"
+	},
+	"publishConfig": {
+		"access": "restricted"
+	}
+}
