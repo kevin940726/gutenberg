@@ -1,6 +1,6 @@
 on:
     workflow_run:
-        workflows: ['Repro issue payload']
+        workflows: ['Repro issue test']
         types:
             - completed
 
