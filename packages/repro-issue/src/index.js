@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' ).promises;
+const core = require( '@actions/core' );
+const github = require( '@actions/github' );
 const remark = require( 'remark' );
 const visit = require( 'unist-util-visit' );
 
@@ -31,27 +32,18 @@ ${ test }
 }
 
 async function generateTestFile() {
-	let event;
-	try {
-		event = await fs.readFile( process.env.GITHUB_EVENT_PATH, 'utf8' );
-		event = JSON.parse( event );
-	} catch ( err ) {
-		console.log( 'No event file found.' );
-		throw err;
-	}
-
-	const {
-		issue: { body, title },
-	} = event;
+	const { body, title } = github.context.payload.issue;
 
 	const repro = await extractRepro( body );
 
 	if ( ! repro ) {
-		throw new Error( 'No repro script found.' );
+		core.info( 'No repro script found.' );
+		return;
 	}
 
 	const testFile = makeTest( title, repro );
 
+	// eslint-disable-next-line no-console
 	console.log( testFile );
 }
 

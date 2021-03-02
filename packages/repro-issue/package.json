@@ -17,6 +17,8 @@
 	},
 	"main": "src/index.js",
 	"dependencies": {
+		"@actions/core": "^1.2.6",
+		"@actions/github": "^4.0.0",
 		"remark": "^13.0.0",
 		"unist-util-visit": "^2.0.3"
 	},
