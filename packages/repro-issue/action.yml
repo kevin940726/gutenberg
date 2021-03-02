@@ -1,0 +1,9 @@
+name: 'repro-issue'
+description: 'Run reproduction scripts in the issues.'
+inputs:
+    repo-token:
+        description: 'GitHub repo token'
+        required: true
+runs:
+    using: 'node14'
+    main: 'src/report.js'

@@ -86,7 +86,6 @@ jobs:
                   name: repro-issue-report
 
             - name: Report to issue
-              run: |
-                  node ./packages/repro-issue/src/report.js
+              uses: ./packages/repro-issue
               with:
                   repo-token: ${{ secrets.GITHUB_TOKEN }}
