@@ -71,4 +71,4 @@ jobs:
 
             - name: Report to issue
               run: |
-                  node ./packages/repro-issue/src/report.js
+                  INPUT_REPO_TOKEN=${{ secrets.GITHUB_TOKEN }} node ./packages/repro-issue/src/report.js
