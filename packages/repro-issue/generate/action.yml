@@ -1,0 +1,5 @@
+name: 'repro-issue-generate'
+description: 'Run reproduction scripts in the issues.'
+runs:
+    using: 'node12'
+    main: 'index.js'
