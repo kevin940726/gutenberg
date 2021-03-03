@@ -1,6 +1,8 @@
 /**
  * External dependencies
  */
+const fs = require( 'fs' ).promises;
+const path = require( 'path' );
 const core = require( '@actions/core' );
 const github = require( '@actions/github' );
 const remark = require( 'remark' );
@@ -41,10 +43,11 @@ async function generateTestFile() {
 		return;
 	}
 
+	const outputFile = core.getInput( 'output-file', { required: true } );
+	const outputFileAbsPath = path.resolve( process.cwd(), outputFile );
 	const testFile = makeTest( title, repro );
 
-	// eslint-disable-next-line no-console
-	console.log( testFile );
+	await fs.writeFile( outputFileAbsPath, testFile, 'utf8' );
 }
 
 generateTestFile();

@@ -40,8 +40,9 @@ jobs:
                   npm run wp-env start
 
             - name: Get repro issue script
-              run: |
-                  node ./packages/repro-issue > ./packages/e2e-tests/specs/repro-issue.test.js
+              uses: ./packages/repro-issue/generate
+              with:
+                  output-file: ./packages/e2e-tests/specs/repro-issue.test.js
 
             - name: Running the tests
               run: |
