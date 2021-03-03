@@ -46,7 +46,7 @@ jobs:
 
             - name: Running the tests
               run: |
-                  $( npm bin )/wp-scripts test-e2e --config=./packages/e2e-tests/jest.config.js --runTestsByPath ./packages/e2e-tests/specs/repro-issue.test.js --json --outputFile=repro-issue-report.json
+                  $( npm bin )/wp-scripts test-e2e --config=./packages/e2e-tests/jest.config.js --runTestsByPath ./packages/e2e-tests/specs/repro-issue.test.js --json --outputFile=repro-issue-report.json || true # Ignore the error
 
             - uses: actions/upload-artifact@v2
               with:
